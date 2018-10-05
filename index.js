@@ -43,7 +43,21 @@ server.get('/api/projects/:id/projectActions', (req, res) => {
         })
 });
 
-
+//Create a new project
+server.post('/api/projects', (req, res) => {
+    console.log(req.body);
+    const { name, description } = req.body;
+    const newProject = { name, description };
+    console.log(newProject);
+    projectModel
+        .insert(newProject)
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        })
+});        
 
 const port = 4000;
 
